@@ -1,29 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.9.4</Version>
-    <Authors>Frank van Hoof</Authors>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://github.com/sebheron/tiktoklivesharp</PackageProjectUrl>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageTags>TikTok;Live</PackageTags>
-    <Description>Port of TikTokLive client for C#</Description>
-    <Company>Frank van Hoof</Company>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
-    <StartupObject />
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIconUrl />
-    <Copyright>2023 Frank van Hoof</Copyright>
-    <RepositoryUrl>https://github.com/frankvHoof93/TikTokLiveSharp</RepositoryUrl>
-    <RepositoryType>Library</RepositoryType>
-    <PackageId>TikTokLive_Sharp</PackageId>
-    <PackageReleaseNotes />
+    <TargetFramework>net6.0</TargetFramework>
+
+	<!-- For NuGet -->
+	<PackageId>TikTokLiveCSharp</PackageId>
+	<Version>6.0.0</Version>
+	<Authors>Connor Vargas</Authors>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Description>Create a TikTok Room Poller</Description>
+	<AssemblyVersion>1.0.0.0</AssemblyVersion>
+	<FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

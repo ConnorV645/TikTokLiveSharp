@@ -1,5 +1,6 @@
 ﻿using ProtoBuf;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -75,7 +76,7 @@ namespace TikTokLiveSharp.Client
         /// <summary>
         /// Gifts Currently on a GiftStreak
         /// </summary>
-        private readonly Dictionary<GiftId, TikTokGift> activeGifts = new Dictionary<GiftId, TikTokGift>();
+        private readonly ConcurrentDictionary<GiftId, TikTokGift> activeGifts = new ConcurrentDictionary<GiftId, TikTokGift>();
         #endregion
 
         #region Events
@@ -789,9 +790,9 @@ namespace TikTokLiveSharp.Client
             }
             else
             {
-                TikTokGift newGift = new TikTokGift(message);
-                lock (activeGifts)
-                    activeGifts.Add(giftId, newGift);
+                TikTokGift newGift = new(message);
+                activeGifts.TryAdd(giftId, newGift);
+
                 if (ShouldLog(LogLevel.Verbose))
                     Debug.Log($"New Gift[{giftId.Gift}]Amount[{message.Amount}]");
                 RunEvent(OnGift, newGift);
@@ -800,8 +801,11 @@ namespace TikTokLiveSharp.Client
             {
                 if (ShouldLog(LogLevel.Verbose))
                     Debug.Log($"GiftStreak Ended: [{giftId.Gift}] Amount[{message.Amount}]");
-                activeGifts[giftId].FinishStreak();
-                activeGifts.Remove(giftId);
+                if (activeGifts.TryGetValue(giftId, out var existingGift))
+                {
+                    existingGift.FinishStreak();
+                    activeGifts.TryRemove(giftId, out _);
+                }
             }
             if (ShouldLog(LogLevel.Verbose))
                 Debug.Log($"Handling GiftMessage");
