@@ -952,7 +952,7 @@ namespace TikTokLiveSharp.Client
             catch (OverflowException e)
             {
                 byte[] byteData = stream.ToArray();
-                WebcastMessageException exc = new WebcastMessageException($"Error Deserializing Message. Base64 for Message: [{Convert.ToBase64String(byteData)}]", e);
+                WebcastMessageException exc = new WebcastMessageException($"Error Deserializing {typeof(T)} Message. Base64 for Message: [{Convert.ToBase64String(byteData)}]", e);
                 if (ShouldLog(LogLevel.Error))
                     Debug.LogException(exc);
                 CallOnException(exc); // Inform user of Error
@@ -962,7 +962,7 @@ namespace TikTokLiveSharp.Client
             catch (Exception ex)
             {
                 byte[] byteData = stream.ToArray();
-                WebcastMessageException exc = new WebcastMessageException($"Error Deserializing Message. Base64 for Message: [{Convert.ToBase64String(byteData)}]", ex);
+                WebcastMessageException exc = new WebcastMessageException($"Error Deserializing {typeof(T)} Message. Base64 for Message: [{Convert.ToBase64String(byteData)}]", ex);
                 if (ShouldLog(LogLevel.Error))
                     Debug.LogException(exc);
                 CallOnException(exc); // Inform user of Error
